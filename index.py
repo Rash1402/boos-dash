@@ -351,7 +351,7 @@ st.markdown("---")
 
 
 #grafica de quejas
-df_tienda = df[df['Tipo'] == 'Tienda']
+df_tienda = df[df['Tipo'] == 'Tiendas']
 
 resumen_cat = df_tienda.groupby('Subcategoría').size().reset_index(name='Total')
 resumen_cat = resumen_cat.sort_values('Total',ascending=True)
@@ -374,14 +374,14 @@ st.plotly_chart(fig)
 
 
 # Agrupar por subcategoría y concatenar los asuntos
-tabla_resumen = df[df['Tipo'] == 'Tienda'].groupby('Subcategoría').agg({
+tabla_resumen = df[df['Tipo'] == 'Tiendas'].groupby('Subcategoría').agg({
     'Asunto': lambda x: '\n'.join(x.unique()),
     'Asunto': 'count'  # esto dará el total de casos
 }).rename(columns={'Asunto': 'Casos', '<lambda_0>': 'Asuntos'})
 
 # Como ya se sobreescribió 'Asunto', debemos hacerlo en 2 pasos:
-asuntos_concat = df[df['Tipo'] == 'Tienda'].groupby('Subcategoría')['Asunto'].agg(lambda x: '\n'.join(x.unique()))
-casos_count = df[df['Tipo'] == 'Tienda'].groupby('Subcategoría')['Asunto'].count()
+asuntos_concat = df[df['Tipo'] == 'Tiendas'].groupby('Subcategoría')['Asunto'].agg(lambda x: '\n'.join(x.unique()))
+casos_count = df[df['Tipo'] == 'Tiendas'].groupby('Subcategoría')['Asunto'].count()
 
 # Juntamos ambos
 tabla_resumen = pd.DataFrame({
