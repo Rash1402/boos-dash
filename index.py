@@ -65,18 +65,16 @@ st.markdown(''':red_circle: **Nota**: Los datos se actualizan cada 7 días''')
 st.markdown("---")
 
 
-df['Fecha de creación'] = pd.to_datetime(df['Fecha de creación'], format='%d/%m/%Y %H:%M')
-df['Fecha de cierre']= pd.to_datetime(df['Fecha de cierre'],format='%d/%m/%Y %H:%M', errors='coerce')
+df_filtrado['Fecha de creación'] = pd.to_datetime(df_filtrado['Fecha de creación'], format='%d/%m/%Y %H:%M')
+df_filtrado['Fecha de cierre']= pd.to_datetime(df_filtrado['Fecha de cierre'],format='%d/%m/%Y %H:%M', errors='coerce')
+df_filtrado['Tiempo_resolución'] = df_filtrado['Fecha de cierre'] - df_filtrado['Fecha de creación']
+df_filtrado['Tiempo_horas'] = df_filtrado['Tiempo_resolución'].dt.total_seconds() / 3600
 
-df ['Tiempo_resolución'] = df['Fecha de cierre'] - df['Fecha de creación']
-
-df['Tiempo_horas'] = df['Tiempo_resolución'].dt.total_seconds() / 3600
-
-promedio_general =df['Tiempo_horas'].mean()
+promedio_general =df_filtrado['Tiempo_horas'].mean()
 
 columnas = ['Pendientes2', 'Fuera de tiempo','En tiempo']
 
-df_largo = df.melt(id_vars='Subgerente',
+df_largo = df_filtrado.melt(id_vars='Subgerente',
                             value_vars=columnas,
                             var_name='Estado',
                             value_name='Valor')
