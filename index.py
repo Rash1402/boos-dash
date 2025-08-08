@@ -59,6 +59,7 @@ if Coordinador_seleccionaada != "Todos":
 
 
 st.image("oracle.png", width=100)
+st.image("boosmap_g.png", width=100)
 st.title("Dashboard Boosmap") 
 st.markdown('''Agosto :calendar:''') 
 st.markdown(''':red_circle: **Nota**: Los datos se actualizan cada 7 días''')
@@ -79,15 +80,11 @@ df_largo = df_filtrado.melt(id_vars='Subgerente',
                             var_name='Estado',
                             value_name='Valor')
 
-df_largo = df_largo[df_largo['Valor'] == 1].drop(columns='Valor')
-
-
-resumen= df_largo.groupby(['Subgerente', 'Estado'])\
-    .size().reset_index(name='Total')
+resumen= df_largo.groupby(['Subgerente','Estado']) ['Valor'].sum().reset_index(name='Total')
 
 totales = resumen[resumen['Estado'] == 'En tiempo']['Total'].sum()
 
-total_general = resumen['Total'].sum()
+total_general = df_filtrado.shape[0]
 
 porcentaje_global = (totales / total_general) * 100
 
@@ -97,7 +94,7 @@ col1,col2,col3,col4 = st.columns(4)
 with col1:
     st.metric("Total de quejas", f"{df_filtrado.shape[0]}")
 with col2:
-    st.metric("On time", f"{porcentaje_global:.2f}%")  
+    st.metric("On time", f"{porcentaje_global:.2f} %")  
 with col3:
     st.metric("Pendientes", f"{df_filtrado[df_filtrado['Pendientes2'] == 1].shape[0]}")
 with col4:
