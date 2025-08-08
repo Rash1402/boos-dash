@@ -64,7 +64,6 @@ st.title("Dashboard Boosmap")
 st.markdown('''Agosto :calendar:''') 
 st.markdown("---")
 
-
 df_filtrado['Fecha de creación'] = pd.to_datetime(df_filtrado['Fecha de creación'], format='%d/%m/%Y %H:%M')
 df_filtrado['Fecha de cierre']= pd.to_datetime(df_filtrado['Fecha de cierre'],format='%d/%m/%Y %H:%M', errors='coerce')
 df_filtrado['Tiempo_resolución'] = df_filtrado['Fecha de cierre'] - df_filtrado['Fecha de creación']
@@ -390,4 +389,5 @@ tabla_resumen = pd.DataFrame({
 
 # Mostrar en streamlit
 st.dataframe(tabla_resumen)
+
 
