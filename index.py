@@ -62,7 +62,6 @@ st.image("oracle.png", width=100)
 st.image("boosmap_g.png", width=100)
 st.title("Dashboard Boosmap") 
 st.markdown('''Agosto :calendar:''') 
-st.markdown(''':red_circle: **Nota**: Los datos se actualizan cada 7 días''')
 st.markdown("---")
 
 
@@ -391,3 +390,4 @@ tabla_resumen = pd.DataFrame({
 
 # Mostrar en streamlit
 st.dataframe(tabla_resumen)
+
